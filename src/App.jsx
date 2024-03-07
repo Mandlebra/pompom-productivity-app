@@ -1,22 +1,7 @@
-// import { useState } from 'react'
+import { Stopwatch, ModBox, ModButton, ModButtonControl } from './appStyles.jsx';
 
-// const App = () => {
-//   const [ date, setCounter ] = useState(0)
-
-//   setTimeout(
-//     () => setCounter(date + 1),
-//     1000
-//   )
-
-//   return (
-//     <div>{date}</div>
-//   )
-// }
-
-// export default App
-
-import React, { useState, useCallback } from 'react';
-import { useStopwatch } from 'react-timer-hook';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useStopwatch, useTimer } from 'react-timer-hook';
 
 
 
@@ -34,12 +19,15 @@ function MyStopwatch() {
   } = useStopwatch({ autoStart: false });
 
   const [mytime, setMyTime] = useState(0);
+  const [mod, setModifier] = useState(1);
+  const [breakearned, setBreakEarned] = useState(0);
 
-  const handleReset = useCallback(() => 
-    {
-      setMyTime(mytime + totalSeconds);
-      reset(0, false);
-    }, [isRunning, reset]);
+  const handleReset = useCallback(() => {
+    setBreakEarned(breakearned + (totalSeconds / mod));
+    setMyTime(mytime + totalSeconds);
+    reset(0, false);
+  }, [isRunning, reset, mytime, totalSeconds, breakearned]);
+
 
   const handleStartPause = useCallback(() => {
     if (isRunning) {
@@ -51,25 +39,97 @@ function MyStopwatch() {
     }
   }, [isRunning, start, pause]);
 
+  //for mod button background color
+
+  const handleMod = useCallback((x) => {
+    setModifier(x);
+
+
+  }, [totalSeconds, mod]);
 
 
   return (
-    <main style={{textAlign: 'center'}}>
-      <h1>react-timer-hook</h1>
-      <p>Stopwatch Demo</p>
-      <section style={{fontSize: '100px'}}>
-        {days}:{hours}:{minutes}:{seconds}  
-      </section>
-      <p>{isRunning ? 'Running' : 'Not running'}</p>
-      <button onClick={handleStartPause}>{isRunning ? 'Pause' : 'Start'}</button>
-      <button onClick={handleReset}>Finish</button>
-      <p>Total Time (seconds): {mytime}</p>
-    </main>
+    <Stopwatch>
+      <article>
+        <h1>Mango Timer</h1>
+        {/* <p>Current Session</p> */}
+        <p>
+          {days}:{hours}:{minutes}:{seconds}
+        </p>
+        {/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
+        <ModButtonControl onClick={handleStartPause}>{isRunning ? 'Pause' : 'Start'}</ModButtonControl>
+        <ModButtonControl onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? handleReset : () => (0)}>Finish</ModButtonControl>
+
+
+      </article>
+      <p>Work to Play: 1/{mod}</p>
+      <ModBox>
+        <ModButton onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(1)}>Easy</ModButton>
+        <ModButton onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(2)}>Medium</ModButton>
+        <ModButton onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(3)}>Hard</ModButton>
+        <ModButton onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(4)}>Very Hard</ModButton>
+      </ModBox>
+      <p>
+        Total Time (seconds): {mytime}
+        <ModButton onClick={() => setMyTime(0)}>Reset</ModButton>
+      </p>
+      <p>
+        Break Earned (seconds): {parseInt(breakearned)}<ModButton onClick={() => setBreakEarned(0)}>Reset</ModButton>
+      </p>
+
+    </Stopwatch>
+
+
   );
 }
 
-export default function App() {
+
+
+function MyTimer({ expiryTimestamp }) {
+  const {
+    totalSeconds,
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+
+
   return (
+    <div style={{ textAlign: 'center' }}>
+      <h1>react-timer-hook </h1>
+      <p>Timer Demo</p>
+      <div style={{ fontSize: '100px' }}>
+        <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+      </div>
+      <p>{isRunning ? 'Running' : 'Not running'}</p>
+      <button onClick={start}>Start</button>
+      <button onClick={pause}>Pause</button>
+      <button onClick={resume}>Resume</button>
+      <button onClick={() => {
+        // Restarts to 5 minutes timer
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + 300);
+        restart(time)
+      }}>Restart</button>
+    </div>
+  );
+}
+
+
+export default function App() {
+  const time = new Date();
+  // time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
+  return (
+    <>
+
       <MyStopwatch />
+      <MyTimer expiryTimestamp={time} />
+    </>
   );
 }

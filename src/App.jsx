@@ -5,7 +5,7 @@ import { useStopwatch, useTimer } from 'react-timer-hook';
 
 
 
-function MyStopwatch() {
+function MyStopwatch({breakearned, setBreakEarned}) {
   const {
     totalSeconds,
     seconds,
@@ -20,7 +20,6 @@ function MyStopwatch() {
 
   const [mytime, setMyTime] = useState(0);
   const [mod, setModifier] = useState(1);
-  const [breakearned, setBreakEarned] = useState(0);
 
   const handleReset = useCallback(() => {
     setBreakEarned(breakearned + (totalSeconds / mod));
@@ -85,7 +84,7 @@ function MyStopwatch() {
 
 
 
-function MyTimer({ expiryTimestamp }) {
+function MyTimer({ expiryTimestamp, breakearned, setBreakEarned }) {
   const {
     totalSeconds,
     seconds,
@@ -99,37 +98,41 @@ function MyTimer({ expiryTimestamp }) {
     restart,
   } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
+  const handleReset = useCallback(() => {
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + breakearned);
+        restart(time);
+  }, [totalSeconds]);
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1>react-timer-hook </h1>
-      <p>Timer Demo</p>
+    // <div style={{ textAlign: 'center' }}>
+      // <h1>react-timer-hook </h1>
+      // <p>Timer Demo</p>
+      <>
       <div style={{ fontSize: '100px' }}>
         <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
       </div>
-      <p>{isRunning ? 'Running' : 'Not running'}</p>
+      {/* <p>{isRunning ? 'Running' : 'Not running'}</p>
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
-      <button onClick={resume}>Resume</button>
-      <button onClick={() => {
-        // Restarts to 5 minutes timer
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + 300);
-        restart(time)
-      }}>Restart</button>
-    </div>
+      <button onClick={resume}>Resume</button> */}
+      <button onClick={handleReset}>Restart</button>
+      </>
+    // </div> 
   );
 }
 
 
 export default function App() {
+
+  const [breakearned, setBreakEarned] = useState(0);
   const time = new Date();
   // time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
   return (
     <>
 
-      <MyStopwatch />
-      <MyTimer expiryTimestamp={time} />
+      <MyStopwatch breakearned = {breakearned} setBreakEarned = {setBreakEarned}/>
+      <MyTimer expiryTimestamp={time} breakearned = {breakearned} setBreakEarned = {setBreakEarned}/>
     </>
   );
 }

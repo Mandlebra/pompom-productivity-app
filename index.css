@@ -7,11 +7,19 @@ body{
   flex-direction: column;
     margin: 0;
     width : 100%;
-    background: lightcyan;
+    background: 	#36454f;
+    /*
+        #6e7f80
+        #536872
+        #708090
+        #536878	
+        #36454f
+    */
 
     text-align: center;
+    color: white;
     font-family: Courier;
-    font-weight: bold;
+    /* font-weight: bold; */
     height: 100%;
     /* flex-shrink: 0; */
     /* justify-content: center; */

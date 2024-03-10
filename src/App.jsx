@@ -1,20 +1,11 @@
-
-// hide switch button
-//find a way to go back to main
-
-//hide navbar on break timer 
-
-// hide stop button on breaktimer side
-// make it a button that says "spend x breakpoints!"
-// that turns into the timer when clicked and vice versa
+//stop backbutton while on break
+//show visual indicator (greyed out)
+//same with difficulty button on swatch screen
+//disable switching screens while stopwatch is running
 
 //add stats to break screen
 
-//turn off all button borders, make them highlight or change color instead
-
-//disable switching screens while stopwatch is running
-
-//all buttons shade on hover
+//add question mark for how-to guide
 
 import { TopNavStyle, BackButton, WorkToPlay, Naviga, Navigado, Stopwatch, ModBox, ModButton, ModButton0, ModButtonBP, ModButtonControl, BackImg } from './appStyles.jsx';
 
@@ -81,7 +72,7 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
         breakearned={breakearned}
         setBreakEarned={setBreakEarned}
       />
-      <h1 className={style}>
+      <h1 style= {{marginBottom: "12px"}}className={style}>
         Mango Timer
       </h1>
       <article className={difficultyToggle == 1 ? 'light' : 'dark'}>
@@ -176,7 +167,7 @@ function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle
         setBreakEarned={setBreakEarned}
       /> */}
       <BackButton className={style == "light" ? "dark" : "light"} onClick={changeStyle}> <BackImg src={buttonLogo} /></BackButton>
-      <h1 style={{ paddingTop: "71px" }} className={style == "light" ? "dark" : "light"}>Break Timer</h1>
+      <h1 style={{ paddingTop: "71px", marginBottom: "12px" }} className={style == "light" ? "dark" : "light"}>Break Timer</h1>
       <article>
 
         {/* <p className={timerVis == 0 ? "dark" : "light"}>{Math.floor(breakearned)} breakpoints earned!</p> */}
@@ -202,7 +193,7 @@ function MyNav({ mytime, style, changeStyle, setMyTime, breakearned, setBreakEar
       <Naviga>
         <Navigado>
           <p>
-            Total: {Math.floor(mytime / 3600)}:{Math.floor((mytime % 3600) / 60)}:{Math.floor(mytime % 60)}
+            Total: {Math.floor(mytime / 3600)}h {Math.floor((mytime % 3600) / 60)}m {Math.floor(mytime % 60)}s
             {/* <ModButton className={style} onClick={() => setMyTime(0)}>Reset</ModButton> */}
           </p>
           <p>

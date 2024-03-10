@@ -9,14 +9,19 @@ border-radius: 13px;
     margin-top: 50px;
     height: 380px;
 
-    width:500px;
+    width:550px;
   max-width:93%;
   /* margin:auto; */
   /* height:50px; */
   /* background:red; */
     /* background: linear-gradient(90deg, #FFADAD, #FFD6A5 35%, #CAFFBF 100%); */
     /* 
-    color palette
+    color palettes
+    #FFADAD
+    #FFD6A5
+    #FDFFB6
+    #CAFFBF
+
     #6e7f80
     #536872
     #708090
@@ -60,7 +65,7 @@ export const ModButton = styled.button`
 font-family: Courier  ;
 border-color: #708090;
 /* padding: 5px; */
-margin: 5px;
+margin: 4px;
 /* width: 5em; */
 height: 3em;
 /* align-items: censter; */
@@ -71,12 +76,12 @@ height: 3em;
 border-radius: 3px;
 /* border-color: #CAFFBF; */
 /* border-color: white; */
-background: #708090;
+background-color: rgb(0,0,0,0);
 /* height: 100%; */
 /* margin: auto; */
 /* padding: auto; */
 &:focus{
-    filter: brightness(90%);
+    /* filter: brightness(50%); */
 }
 `;
 
@@ -90,26 +95,30 @@ object-fit: contain;
 
 export const ModButtonBP = styled(ModButton)`
     background-color: rgb(0,0,0,0);
-    border-color: #708090;
+    /* border-color: #e5e5e5; */
+    /* border-color: #708090; */
     &:focus{
         filter: brightness(100%);
     }
 `;
 export const BackButton = styled(ModButton)`
 margin: 10px;
-width:8%; 
-  height:8%;
+width:9%; 
+  height:9%;
 background-color: #536878;
 border-radius: 50%;
 border: none;
 float: left;
-&:hover{
-    background: #708090;
+
+&:focus{
+    background: none;
+
+    filter: brightness(50%);
 }
 `;
 
 export const ModButton0 = styled(ModButton)`
-    border-color: #708090;
+    /* border-color: #708090; */
     border-width: 3px;
     border-radius: 13px;
     /* font-weight: bold; */
@@ -126,7 +135,8 @@ export const ModButtonControl = styled(ModButton)`
 /* border-color: grey; */
 border-width: 3px;
 border-radius: 13px;
-border-color: #708090;
+/* border-color: #708090; */
+background-color: rgb(0,0,0,0);
 width: 250px;
 height: 150px;
 /* font-weight: bold; */
@@ -193,6 +203,6 @@ width: 100%;
 display: flex;
 margin: auto;
 justify-content: center;
-margin-top: 10px;
+margin-top: 19px;
 
 `;

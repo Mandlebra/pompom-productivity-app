@@ -7,9 +7,10 @@ body{
   flex-direction: column;
     margin: 0;
     width : 100%;
-    background: 	#36454f;
+    background: 	#0d0c1d;
     /*
         #6e7f80
+
         #536872
         #708090
         #536878	
@@ -17,9 +18,9 @@ body{
     */
 
     text-align: center;
-    color: white;
+    /* color: #0d0c1d; */
     font-family: Courier;
-    /* font-weight: bold; */
+    font-weight: bold;
     height: 100%;
     /* flex-shrink: 0; */
     /* justify-content: center; */

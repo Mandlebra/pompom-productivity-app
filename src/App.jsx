@@ -1,11 +1,20 @@
-//stop backbutton while on break
-//show visual indicator (greyed out)
-//same with difficulty button on swatch screen
-//disable switching screens while stopwatch is running
+//show visual indicator that you cant use buttons(greyed out?)
+
+//add shop button to stopwatch fixed position, ignore nav
+
+//save user profiles, login
+
+//cookies to keep timer data when computer closes/refreshes?
+//might be a local server issue
+//test on pc
 
 //add stats to break screen
 
+//color back button
+
 //add question mark for how-to guide
+//picture with text boxes?
+//new screen with text. explain concept & execution
 
 import { TopNavStyle, BackButton, WorkToPlay, Naviga, Navigado, Stopwatch, ModBox, ModButton, ModButton0, ModButtonBP, ModButtonControl, BackImg } from './appStyles.jsx';
 
@@ -14,9 +23,11 @@ import buttonLogo from '/src/assets/backArrow.png';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useStopwatch, useTimer } from 'react-timer-hook';
 
+Number.prototype.zeroPad = function () {
+  return ('0' + this).slice(-2);
+};
 
-
-function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, setTimerVis, mytime, setMyTime, difficultyToggle, setDifficultyToggle }) {
+function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, setTimerVis, mytime, setMyTime, difficultyToggle, setDifficultyToggle, globalRunning, setGlobalRunning }) {
 
   const {
     totalSeconds,
@@ -36,6 +47,7 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
     setBreakEarned(breakearned + (totalSeconds / mod));
     setMyTime(mytime + totalSeconds);
     reset(0, false);
+    setGlobalRunning(false);
   }, [isRunning, reset, mytime, totalSeconds, breakearned]);
 
   const changeStyle = () => {
@@ -49,6 +61,7 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
       handleReset();
     } else {
       start();
+      setGlobalRunning(true);
     }
   }, [isRunning, start, pause]);
 
@@ -64,6 +77,7 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
 
   return (
     <Stopwatch className={style}>
+      <BackButton className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={() => setDifficultyToggle(1)}> <BackImg src={buttonLogo} /></BackButton>
       <MyNav
         mytime={mytime}
         setMyTime={setMyTime}
@@ -71,9 +85,12 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
         changeStyle={changeStyle}
         breakearned={breakearned}
         setBreakEarned={setBreakEarned}
+        difficultyToggle={difficultyToggle} 
+        globalRunning={globalRunning}
+        setGlobalRunning={setGlobalRunning}
       />
-      <h1 style= {{marginBottom: "12px"}}className={style}>
-        Mango Timer
+      <h1 style={{ color: "#dadada", marginBottom: "12px" }} className={style}>
+        {difficultyToggle == 1 ? "Mongo Timer" : ""}
       </h1>
       <article className={difficultyToggle == 1 ? 'light' : 'dark'}>
         {/* <p>Current Session</p> */}
@@ -82,26 +99,26 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
         </p> */}
         {/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
         <ModButtonControl className={style} onClick={handleStartPause}>
-          {!isRunning ? "Start" : hours + ":" + minutes + ":" + seconds}
+          {!isRunning ? "Start" : hours.zeroPad() + ":" + minutes.zeroPad() + ":" + seconds.zeroPad()}
           {/* {hours}:{minutes}:{seconds} */}
         </ModButtonControl>
         {/* <ModButtonControl className={style} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? handleReset : () => (0)}>
           Finish
         </ModButtonControl> */}
       </article>
-
-
-      <ModBox className={style}>
-        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(1)}>Very Easy</ModButton0>
-        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(2)}>Easy</ModButton0>
-        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(3)}>Medium</ModButton0>
-        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(4)}>Hard</ModButton0>
-      </ModBox>
-
       <WorkToPlay>
-        <p className={difficultyToggle == 1 ? 'light' : 'dark'}>Difficulty: </p>
+        <p style={{ color: "#dadada" }} className={difficultyToggle == 1 ? 'light' : 'dark'}>Difficulty: </p>
         <ModButton className={difficultyToggle == 1 ? 'light' : 'dark'} onClick={!isRunning ? () => setDifficultyToggle(0) : () => (0)}>1/{mod}</ModButton>
       </WorkToPlay>
+
+      <ModBox className={style}>
+        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(1)}>Very Easy &nbsp;[1/1]</ModButton0>
+        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(2)}>Easy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1/2]</ModButton0>
+        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(3)}>Medium &nbsp;&nbsp;&nbsp; [1/3]</ModButton0>
+        <ModButton0 className={difficultyToggle == 0 ? 'light' : 'dark'} onClick={((totalSeconds > 0) || (isRunning && totalSeconds == 0)) ? () => (0) : () => handleMod(4)}>Hard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1/4]</ModButton0>
+      </ModBox>
+
+
 
 
     </Stopwatch>
@@ -112,7 +129,7 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
 
 
 
-function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle, changeStyle, timerVis, setTimerVis, mytime, setMyTime }) {
+function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle, changeStyle, timerVis, setTimerVis, mytime, setMyTime, globalRunning, setGlobalRunning }) {
   const {
     totalSeconds,
     seconds,
@@ -166,8 +183,8 @@ function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle
         breakearned={breakearned}
         setBreakEarned={setBreakEarned}
       /> */}
-      <BackButton className={style == "light" ? "dark" : "light"} onClick={changeStyle}> <BackImg src={buttonLogo} /></BackButton>
-      <h1 style={{ paddingTop: "71px", marginBottom: "12px" }} className={style == "light" ? "dark" : "light"}>Break Timer</h1>
+      <BackButton className={style == "light" ? "dark" : "light"} onClick={!isRunning ? () => changeStyle() : () => (0)}> <BackImg src={buttonLogo} /></BackButton>
+      <h1 style={{ color: "#dadada", paddingTop: "71px", marginBottom: "12px" }} className={style == "light" ? "dark" : "light"}>Break Timer</h1>
       <article>
 
         {/* <p className={timerVis == 0 ? "dark" : "light"}>{Math.floor(breakearned)} breakpoints earned!</p> */}
@@ -178,7 +195,7 @@ function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle
         {/* <ModBox className={style == "light" ? "dark" : "light"}> */}
         {/* <ModButton className={style == "light" ? "dark" : "light"} onClick={resume}>Resume</ModButton> */}
         <ModButtonControl className={style == "light" ? "dark" : "light"} onClick={handleStartPause}>
-          {isRunning ? hours + ":" + minutes + ":" + seconds : parseInt(breakearned) + " BP"}</ModButtonControl>
+          {isRunning ? hours.zeroPad() + ":" + minutes.zeroPad() + ":" + seconds.zeroPad() : parseInt(breakearned) + " BP"}</ModButtonControl>
         {/* </ModBox> */}
       </article>
     </Stopwatch>
@@ -186,23 +203,25 @@ function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle
   );
 }
 
-function MyNav({ mytime, style, changeStyle, setMyTime, breakearned, setBreakEarned }) {
+function MyNav({ mytime, style, changeStyle, setMyTime, breakearned, setBreakEarned, difficultyToggle, globalRunning }) {
 
   return (
     <>
       <Naviga>
-        <Navigado>
-          <p>
-            Total: {Math.floor(mytime / 3600)}h {Math.floor((mytime % 3600) / 60)}m {Math.floor(mytime % 60)}s
-            {/* <ModButton className={style} onClick={() => setMyTime(0)}>Reset</ModButton> */}
-          </p>
-          <p>
-            <ModButtonBP className={style} onClick={changeStyle}>
-              Breakpoints: {parseInt(breakearned)}
-            </ModButtonBP>
-            {/*<ModButton className={style} onClick={() => setBreakEarned(0)}>Reset</ModButton> */}
-          </p>
-        </Navigado>
+        <div className={difficultyToggle == 1 ? 'light' : 'dark'}>
+          <Navigado>
+            <p>
+              Total: {Math.floor(mytime / 3600)}h {Math.floor((mytime % 3600) / 60)}m {Math.floor(mytime % 60)}s
+              {/* <ModButton className={style} onClick={() => setMyTime(0)}>Reset</ModButton> */}
+            </p>
+            <p>
+              <ModButtonBP className={style} onClick={globalRunning == false ? () => changeStyle() : () => (0)}>
+                Breakpoints: {parseInt(breakearned)}
+              </ModButtonBP>
+              {/*<ModButton className={style} onClick={() => setBreakEarned(0)}>Reset</ModButton> */}
+            </p>
+          </Navigado>
+        </div>
       </Naviga>
     </>
   );
@@ -213,13 +232,14 @@ function TopNav() {
   return (
     <>
       <TopNavStyle>
-      {/* Michael */}
+        {/* Michael */}
       </TopNavStyle>
     </>
   );
 }
 
-export default function App() {
+export default function App() 
+{
 
 
   const [breakearned, setBreakEarned] = useState(0);
@@ -227,6 +247,8 @@ export default function App() {
   const [timerVis, setTimerVis] = useState(0);
   const [difficultyToggle, setDifficultyToggle] = useState(1);
   const [mytime, setMyTime] = useState(0);
+  const [globalRunning, setGlobalRunning] = useState(false);
+
 
   const time = new Date();
 
@@ -252,6 +274,8 @@ export default function App() {
         setTimerVis={setTimerVis}
         difficultyToggle={difficultyToggle}
         setDifficultyToggle={setDifficultyToggle}
+        globalRunning={globalRunning}
+        setGlobalRunning={setGlobalRunning}
       />
       <MyTimer
         mytime={mytime}
@@ -263,7 +287,10 @@ export default function App() {
         breakearned={breakearned}
         setBreakEarned={setBreakEarned}
         timerVis={timerVis}
-        setTimerVis={setTimerVis} />
+        setTimerVis={setTimerVis}
+        globalRunning={globalRunning}
+        setGlobalRunning={setGlobalRunning}
+      />
     </>
   );
 }

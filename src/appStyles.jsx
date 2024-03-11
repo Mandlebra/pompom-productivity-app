@@ -2,21 +2,39 @@ import styled from 'styled-components';
 
 export const Stopwatch = styled.main`
 
-    background: #536878;
+    background: #282846;
     width: 70%;
     margin: auto;
 border-radius: 13px;
     margin-top: 50px;
     height: 380px;
 
-    width:550px;
+    width:450px;
   max-width:93%;
+    align-items: center;
+    justify-content: center;
   /* margin:auto; */
   /* height:50px; */
   /* background:red; */
     /* background: linear-gradient(90deg, #FFADAD, #FFD6A5 35%, #CAFFBF 100%); */
     /* 
     color palettes
+#0d0c1d
+#474973
+#9fa6de
+#e9d1e2
+#dadada
+#c974c8
+
+
+#f1dac4 // #a69cac // #474973 // #161b33 // #0d0c1d
+
+ #6e7f80
+
+        #536872
+        #708090
+        #536878	
+        #36454f
     #FFADAD
     #FFD6A5
     #FDFFB6
@@ -36,8 +54,6 @@ border-radius: 13px;
     /* max-width: 500px;  */
     /* display: flex; */
     /* flex-direction: column; */
-    align-items: center;
-    justify-content: center;
 `;
 
 export const ModBox = styled.aside`
@@ -55,15 +71,16 @@ width: 35%;
      align-items: center;
     justify-content: center;
     margin: auto; 
+    padding-top: 25px;
     /* max-width: 1000px; */
     /* height: 100%; */
     /* height : 100%; */
 `;
 
 export const ModButton = styled.button`
-    color: white;
+    color: #dadada;
 font-family: Courier  ;
-border-color: #708090;
+border-color: #dadada;
 /* padding: 5px; */
 margin: 4px;
 /* width: 5em; */
@@ -76,12 +93,15 @@ height: 3em;
 border-radius: 3px;
 /* border-color: #CAFFBF; */
 /* border-color: white; */
-background-color: rgb(0,0,0,0);
+background-color: #282846;
 /* height: 100%; */
 /* margin: auto; */
 /* padding: auto; */
-&:focus{
-    /* filter: brightness(50%); */
+&:hover{
+        filter: brightness(100%);
+    }
+&:active{
+    filter: brightness(95%);
 }
 `;
 
@@ -94,29 +114,40 @@ object-fit: contain;
 `;
 
 export const ModButtonBP = styled(ModButton)`
-    background-color: rgb(0,0,0,0);
-    /* border-color: #e5e5e5; */
+    background-color: #9fa6de;
+    color: #0d0c1d;
+    border-color: #9fa6de;
+    border-radius: 0;
+    font-weight: bold;
+font-size: 16px;
+height: 50px;
+    border: none;
     /* border-color: #708090; */
-    &:focus{
-        filter: brightness(100%);
+    &:hover{
+        filter: brightness(90%);
     }
+    /* &:focus{
+
+    filter: brightness(80%);
+} */
 `;
 export const BackButton = styled(ModButton)`
-margin: 10px;
-width:9%; 
-  height:9%;
-background-color: #536878;
-border-radius: 50%;
-border: none;
-float: left;
+    margin: 10px;
+    width:9%; 
+    height:9%;
+    /* background-color: #536878; */
+    border-radius:30%;
+    border: none;
+    float: left;
 
-&:focus{
-    background: none;
+    &:active{
+        background: none;
 
-    filter: brightness(50%);
-}
+        filter: brightness(50%);
+    }
 `;
 
+//for mod menu buttons
 export const ModButton0 = styled(ModButton)`
     /* border-color: #708090; */
     border-width: 3px;
@@ -124,9 +155,9 @@ export const ModButton0 = styled(ModButton)`
     /* font-weight: bold; */
     width: 200px;
     font-size: 16px;
-    &:focus{
+    /* &:focus{
         filter: brightness(100%);
-    }
+    } */
 `;
 
 
@@ -136,7 +167,7 @@ export const ModButtonControl = styled(ModButton)`
 border-width: 3px;
 border-radius: 13px;
 /* border-color: #708090; */
-background-color: rgb(0,0,0,0);
+background-color: #282846;
 width: 250px;
 height: 150px;
 /* font-weight: bold; */
@@ -144,9 +175,9 @@ font-size:200%;
 /* background: #FFADAD; */
 /* border-color: white;  */
 /* border-radius: 3px; */
-&:focus{
+/* &:focus{
     filter: brightness(100%);
-}
+} */
 `;
 
 export const Naviga = styled.nav`
@@ -158,7 +189,7 @@ border-top-right-radius: 13px;
 width: 100%;
 //transparent background
     /* background: rgba(0,0,0,0); */
-background: #708090;
+background: #9fa6de;
 /* border-color: white;  */
 /* border-radius: 3px; */
 `;
@@ -166,14 +197,14 @@ background: #708090;
 
 export const Navigado = styled.nav`
 /* border-bottom: 1px solid black; */
-color: white;
+/* color: f1dac4; */
 align-items: center;
 display: flex;
 margin: auto;
 justify-content: space-around;
 
 height: 50px;
-width: 70%;
+width: 80%;
 
 `;
 export const TopNavStyle = styled.nav`
@@ -181,7 +212,7 @@ export const TopNavStyle = styled.nav`
 position: fixed;
 top: 0;
 left: 0;
-color: white;
+/* color: white; */
 background-color: #536878;
 align-items: center;
 /* text-align: left; */
@@ -203,6 +234,6 @@ width: 100%;
 display: flex;
 margin: auto;
 justify-content: center;
-margin-top: 19px;
+margin-top: 20px;
 
 `;

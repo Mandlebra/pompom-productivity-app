@@ -85,7 +85,7 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
         changeStyle={changeStyle}
         breakearned={breakearned}
         setBreakEarned={setBreakEarned}
-        difficultyToggle={difficultyToggle} 
+        difficultyToggle={difficultyToggle}
         globalRunning={globalRunning}
         setGlobalRunning={setGlobalRunning}
       />
@@ -166,7 +166,8 @@ function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle
       setBreakEarned(totalSeconds);
       setTimerVis(1);
     } else {
-      handleReset();
+      if (breakearned > 0)
+        handleReset();
     }
   }, [isRunning, start, pause, totalSeconds, breakearned]);
 
@@ -238,8 +239,7 @@ function TopNav() {
   );
 }
 
-export default function App() 
-{
+export default function App() {
 
 
   const [breakearned, setBreakEarned] = useState(0);

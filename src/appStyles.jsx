@@ -21,7 +21,7 @@ border-radius: 13px;
     color palettes
 #0d0c1d
 #474973
-#9fa6de
+#959cd0
 #e9d1e2
 #dadada
 #c974c8
@@ -79,30 +79,31 @@ width: 35%;
 
 export const ModButton = styled.button`
     color: #dadada;
-font-family: Courier  ;
-border-color: #dadada;
-/* padding: 5px; */
-margin: 4px;
-/* width: 5em; */
-height: 3em;
-/* align-items: censter; */
-/* text-align: center; */
-/* justify-content: center; */
+    font-family: Courier  ;
+    border-color: #dadada;
+    /* padding: 5px; */
+    margin: 4px;
+    /* width: 5em; */
+    height: 3em;
+    /* align-items: censter; */
+    /* text-align: center; */
+    /* justify-content: center; */
 
-/* background: #CAFFBF; */
-border-radius: 3px;
-/* border-color: #CAFFBF; */
-/* border-color: white; */
-background-color: #282846;
-/* height: 100%; */
-/* margin: auto; */
-/* padding: auto; */
-&:hover{
-        filter: brightness(100%);
+    /* background: #CAFFBF; */
+    border-radius: 3px;
+    /* border-color: #CAFFBF; */
+    /* border-color: white; */
+    background-color: #282846;
+    /* height: 100%; */
+    /* margin: auto; */
+    /* padding: auto; */
+    &:hover{
+            filter: brightness(100%);
+        }
+    &:active{
+        filter: brightness(95%);
+        color: #d0d0d0;
     }
-&:active{
-    filter: brightness(95%);
-}
 `;
 
 export const BackImg = styled.img`
@@ -114,9 +115,9 @@ object-fit: contain;
 `;
 
 export const ModButtonBP = styled(ModButton)`
-    background-color: #9fa6de;
+    background-color: #959cd0;
     color: #0d0c1d;
-    border-color: #9fa6de;
+    border-color: #959cd0;
     border-radius: 0;
     font-weight: bold;
 font-size: 16px;
@@ -125,6 +126,10 @@ height: 50px;
     /* border-color: #708090; */
     &:hover{
         filter: brightness(90%);
+    }
+    &:active{
+        filter: brightness(80%);
+        color: #0d0c1d;
     }
     /* &:focus{
 
@@ -189,7 +194,7 @@ border-top-right-radius: 13px;
 width: 100%;
 //transparent background
     /* background: rgba(0,0,0,0); */
-background: #9fa6de;
+background: #959cd0;
 /* border-color: white;  */
 /* border-radius: 3px; */
 `;

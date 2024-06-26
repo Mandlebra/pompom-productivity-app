@@ -2,6 +2,11 @@
 
 //add shop button to stopwatch fixed position, ignore nav
 
+//add cancel button so time isnt added to total
+
+//allow change difficulty white timer is running?
+//maybe make a settings page? maybe in help page?
+
 //save user profiles, login
 
 //cookies to keep timer data when computer closes/refreshes?

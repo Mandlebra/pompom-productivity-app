@@ -1,0 +1,3 @@
+Separate the stopwatch component from App.jsx. Put it on a separate page and route to it. Maybe use Zustand to store state.
+Timer page should just say im a sassy cunt without the old timer below it. Then work on new timer implementation based on 
+system time. Store Date.now() in local storage. Mkv or something? I forgot what i was using for local storage before.

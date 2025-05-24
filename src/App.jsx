@@ -21,9 +21,12 @@
 //picture with text boxes?
 //new screen with text. explain concept & execution
 
+    import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { TopNavStyle, BackButton, WorkToPlay, Naviga, Navigado, Stopwatch, ModBox, ModButton, ModButton0, ModButtonBP, ModButtonControl, BackImg } from './appStyles.jsx';
 
 import buttonLogo from '/src/assets/backArrow.png';
+
+import Header from './components/Header';
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { useStopwatch, useTimer } from 'react-timer-hook';
@@ -131,8 +134,6 @@ function MyStopwatch({ breakearned, setBreakEarned, style, setStyle, timerVis, s
 
   );
 }
-
-
 
 function MyTimer({ expiryTimestamp, breakearned, setBreakEarned, style, setStyle, changeStyle, timerVis, setTimerVis, mytime, setMyTime, globalRunning, setGlobalRunning }) {
   const {
@@ -243,7 +244,7 @@ function TopNav() {
     </>
   );
 }
-
+import TimerPage from './pages/TimerPage.jsx';
 export default function App() {
 
 
@@ -266,6 +267,14 @@ export default function App() {
   // time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
   return (
     <>
+              <Router>
+      <Header />
+      <Routes>
+        <Route path="/timer" element={<TimerPage />} />
+        {/* <Route path="/stats" element={<StatsPage />} />
+        <Route path="/settings" element={<SettingsPage />} />  */}
+      </Routes>
+    </Router>
       {/* <TopNav/> */}
       <MyStopwatch
         changeStyle={changeStyle}
